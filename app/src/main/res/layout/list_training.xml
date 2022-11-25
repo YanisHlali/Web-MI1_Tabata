@@ -12,7 +12,6 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/list_training"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#343434">
@@ -29,6 +28,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ListView
+            android:id="@+id/list_training"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="#867878"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.559"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titlePage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

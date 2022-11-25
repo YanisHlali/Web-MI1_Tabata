@@ -6,6 +6,6 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Training.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract TrainingDao taskDao();
+    public abstract TrainingDao trainingDao();
 
 }
