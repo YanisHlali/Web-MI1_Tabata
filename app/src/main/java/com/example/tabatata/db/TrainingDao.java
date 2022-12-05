@@ -20,11 +20,19 @@ public interface TrainingDao {
     @Query("DELETE FROM training")
     void delete();
 
-   /* @Query("SELECT * FROM training WHERE name = :nameParam")
-    Training searchTrainingByName(String nameParam);*/
-
-    @Query("SELECT * FROM training WHERE name =:nameParam")
+    @Query("SELECT * FROM training WHERE name = :nameParam")
     Training getTrainingByName(String nameParam);
+
+    @Query("SELECT * FROM training WHERE id = :id")
+    Training getTrainingById(int id);
+
+    @Query("UPDATE training SET preparation = :preparation," +
+            "sequence = :sequence," +
+            "cycle = :cycle," +
+            "work = :work," +
+            "rest = :rest,longRest = :longRest " +
+            "WHERE id = :id")
+    void updateTraining(int id, int preparation, int sequence, int cycle, int work, int rest, int longRest);
 
     @Insert
     long insert(Training training);

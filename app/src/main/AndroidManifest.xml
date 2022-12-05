@@ -26,7 +26,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CreateTraining"
+            android:name=".crud.CreateTraining"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListTraining"
+            android:name=".crud.ListTraining"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,13 +42,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SeeTraining"
+            android:name=".crud.SeeTraining"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".crud.ModifyTraining"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".chrono.Chrono"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.tabatata.chrono.Compteur" />
     </application>
 
 </manifest>

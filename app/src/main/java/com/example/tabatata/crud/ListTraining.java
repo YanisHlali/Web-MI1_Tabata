@@ -1,15 +1,17 @@
-package com.example.tabatata;
+package com.example.tabatata.crud;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tabatata.R;
+import com.example.tabatata.TrainingsAdapter;
 import com.example.tabatata.db.DatabaseClient;
 import com.example.tabatata.db.Training;
 
@@ -55,8 +57,7 @@ public class ListTraining extends AppCompatActivity {
                 // Récupération de la tâche cliquée à l'aide de l'adapter
                 Training training = adapter.getItem(position);
 
-                // Message
-                Toast.makeText(ListTraining.this, "Click : " + training.getName(), Toast.LENGTH_SHORT).show();
+                seeTraining(training.getId());
             }
         });
 
@@ -68,7 +69,6 @@ public class ListTraining extends AppCompatActivity {
 
     private void getTrainings() {
         ///////////////////////
-        // Classe asynchrone permettant de récupérer des taches et de mettre à jour le listView de l'activité
         class GetTrainings extends AsyncTask<Void, Void, List<Training>> {
 
             @Override
@@ -135,4 +135,11 @@ public class ListTraining extends AppCompatActivity {
             textView.setPadding(50, 400+(i*200), 200, 0);
             constraintLayout.addView(textView);
         }; */
+
+    public void seeTraining(int id) {
+        Intent intent = new Intent(ListTraining.this, SeeTraining.class);
+        intent.putExtra("id", id);
+        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+    }
 }

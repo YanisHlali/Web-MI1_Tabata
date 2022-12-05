@@ -6,6 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tabatata.crud.CreateTraining;
+import com.example.tabatata.crud.ListTraining;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

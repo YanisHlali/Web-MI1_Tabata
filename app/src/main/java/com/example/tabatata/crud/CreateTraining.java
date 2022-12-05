@@ -1,4 +1,4 @@
-package com.example.tabatata;
+package com.example.tabatata.crud;
 
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tabatata.R;
 import com.example.tabatata.db.DatabaseClient;
 import com.example.tabatata.db.Training;
 
@@ -75,9 +76,8 @@ public class CreateTraining extends AppCompatActivity {
         String work = tvWork.getText().toString();
         String rest = tvRest.getText().toString();
         String longRest = tvLongRest.getText().toString();
-        System.out.println("------------------------ ");
 
-        class saveTraining extends AsyncTask<Void, Void, Training> {
+       class saveTraining extends AsyncTask<Void, Void, Training> {
 
             @Override
             protected Training doInBackground(Void... voids) {

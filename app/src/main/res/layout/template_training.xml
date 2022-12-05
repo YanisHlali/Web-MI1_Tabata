@@ -9,10 +9,11 @@
         android:id="@+id/textViewTraining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:padding="15dp"
         android:text="Go Bring Eggs"
+
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
 </LinearLayout>
