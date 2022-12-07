@@ -63,16 +63,43 @@
         app:srcCompat="@drawable/play_button" />
 
     <TextView
-        android:id="@+id/nextAction"
+    android:id="@+id/nextAction"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="100dp"
+    android:onClick="nextAction"
+    android:text="TextView"
+    android:textColor="#343434"
+    android:textSize="28dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/playButton" />
+
+    <TextView
+        android:id="@+id/nextSecondAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:onClick="nextAction"
         android:text="TextView"
         android:textColor="#343434"
         android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playButton" />
+        app:layout_constraintTop_toBottomOf="@+id/nextAction" />
+
+    <TextView
+        android:id="@+id/nextThirdAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="nextAction"
+        android:text="TextView"
+        android:textColor="#343434"
+        android:textSize="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nextSecondAction" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

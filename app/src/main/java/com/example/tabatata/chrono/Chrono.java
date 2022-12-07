@@ -33,19 +33,18 @@ public class Chrono extends AppCompatActivity implements OnUpdateListener {
         setContentView(R.layout.run_training);
         getSupportActionBar().hide();
 
-        // Récupérer la view
+        // Get view
         timerValue = (TextView) findViewById(R.id.valueChrono);
-
-
+        // Get database
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        // Initialiser l'objet Compteur
+        // Initialize the Counter object
         compteur = new Compteur(this);
 
-        // Abonner l'activité au compteur pour "suivre" les événements
+        // Subscribe the activity to the counter to "follow" the events
         compteur.addOnUpdateListener(this);
 
-        // Mise à jour graphique
+        // Graphic update
         miseAJour();
     }
 
@@ -86,10 +85,11 @@ public class Chrono extends AppCompatActivity implements OnUpdateListener {
                 trainingFeature.add(sequence);
                 trainingFeatureField.add("Séquence");
 
-                compteur.setArrayTime(trainingFeature);
-                compteur.setIndexArrayTime(0);
-                compteur.setArrayTimeField(trainingFeatureField);
-                compteur.setTime(compteur.getArrayTime().get(compteur.getIndexArrayTime()) * 1000);
+
+                compteur.setArrayTraining(trainingFeature);
+                compteur.setIndexArrayTraining(0);
+                compteur.setArrayTrainingField(trainingFeatureField);
+                // compteur.setCurrentTime(compteur.getArrayTraining().get(compteur.getIndexArrayTraining()) * 1000);
 
                 TextView tvDescription = findViewById(R.id.description);
                 tvDescription.setText(trainingFeatureField.get(0));
@@ -98,7 +98,7 @@ public class Chrono extends AppCompatActivity implements OnUpdateListener {
                 TextView tvChrono = findViewById(R.id.valueChrono);
                 tvChrono.setTextColor(Color.WHITE);
 
-                compteur.start();
+                compteur.startTimer();
             }
         }
 
@@ -113,13 +113,13 @@ public class Chrono extends AppCompatActivity implements OnUpdateListener {
         if (isPaused) isPaused = false;
         else isPaused = true;
         // If the button is press for the first time ...
-        if (compteur.getTime() == 0) {
+        if (compteur.getCurrentTime() == 0) {
             // ... the training is launched
             runTraining(view);
             changeImageButton("play");
         } else { // ... otherwise the counter pauses or continues
             if (isPaused) {
-                compteur.start();
+                compteur.startTimer();
                 changeImageButton("play");
             } else {
                 pause();
@@ -134,7 +134,7 @@ public class Chrono extends AppCompatActivity implements OnUpdateListener {
         TextView tvChrono = findViewById(R.id.valueChrono);
         String[] times = tvChrono.getText().toString().split(":");
         float time = Float.parseFloat(times[0]) + Float.parseFloat(times[1]);
-        compteur.setTime(time * 1000);
+        compteur.setCurrentTime(time * 1000);
     }
 
     public void changeImageButton(String status) {

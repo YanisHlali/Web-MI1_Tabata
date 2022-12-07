@@ -1,150 +1,150 @@
-package com.example.tabatata.chrono;
+        package com.example.tabatata.chrono;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.os.CountDownTimer;
-import android.widget.TextView;
+        import android.app.Activity;
+        import android.content.Context;
+        import android.graphics.Color;
+        import android.os.CountDownTimer;
+        import android.widget.TextView;
 
-import com.example.tabatata.R;
+        import com.example.tabatata.R;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
-public class Compteur extends UpdateSource {
-    Context context;
-    // CONSTANTE
-    private final static long INITIAL_TIME = 5000;
+        public class Compteur extends UpdateSource {
+            Context context;
 
-    // DATA
-    private long updatedTime;
-    private CountDownTimer timer;   // https://developer.android.com/reference/android/os/CountDownTimer.html
+            private long counterTime;
+            private CountDownTimer timer;
+            private ArrayList<Integer> arrayTraining;
+            private int indexArrayTraining;
+            private ArrayList<String> arrayTrainingField;
 
-    private ArrayList<Integer> arrayTime;
-    private int indexArrayTime;
-    private ArrayList<String> arrayTimeField;
+            public Compteur(Context context) {
+                this.context = context;
+            }
 
-    public Compteur(Context context) {
-        this.context = context;
-    }
+            public void setCurrentTime(float i) {
+                this.counterTime = (long) i;
+            }
 
-    public void setTime(float i) {
-        this.updatedTime = (long) i;
-    }
+            public long getCurrentTime() {
+                return this.counterTime;
+            }
 
-    public long getTime() {
-        return this.updatedTime;
-    }
+            public void setArrayTraining(ArrayList<Integer> array) {
+                this.arrayTraining = array;
+            }
 
-    public void setArrayTime(ArrayList<Integer> array) {
-        this.arrayTime = array;
-    }
+            public ArrayList<Integer> getArrayTraining() { return this.arrayTraining; }
 
-    public ArrayList<Integer> getArrayTime() {
-        return this.arrayTime;
-    }
+            public void setIndexArrayTraining(int index) { this.indexArrayTraining = index; }
 
-    public void setIndexArrayTime(int index) {
-        this.indexArrayTime = index;
-    }
+            public int getIndexArrayTraining() { return this.indexArrayTraining; }
 
-    public int getIndexArrayTime() {
-        return this.indexArrayTime;
-    }
+            public void setArrayTrainingField(ArrayList<String> array) { this.arrayTrainingField = array; }
 
-    public void setArrayTimeField(ArrayList<String> array) { this.arrayTimeField = array; }
-
-    public ArrayList<String> getArrayTimeField() { return this.arrayTimeField; }
+            public ArrayList<String> getArrayTrainingField() { return this.arrayTrainingField; }
 
 
-    // Lancer le compteur
-    public void start() {
-        displayNextAction();
-        updatedTime = getTime();
-        if (timer == null) {
+            // Start the counter
+            public void startTimer() {
+                // Displays the next action the user must perform
+                displayNextAction();
+                // Initializes the counter time to the current workout time
+                if (getCurrentTime() == 0) setCurrentTime(getArrayTraining().get(0) * 1000);
+                counterTime = getCurrentTime();
+                // If the timer doesn't exist ...
+                if (timer == null) {
+                    // ... CountDownTimer is created
+                    timer = new CountDownTimer(getCurrentTime(), 10) {
 
-            // Créer le CountDownTimer
-            timer = new CountDownTimer(updatedTime, 10) {
+                        // Callback fired on regular interval
+                        public void onTick(long millisUntilFinished) {
+                            counterTime = millisUntilFinished;
+                            update();
+                        }
 
-                // Callback fired on regular interval
-                public void onTick(long millisUntilFinished) {
-                    updatedTime = millisUntilFinished;
+                        // Callback fired when the time is up
+                        public void onFinish() {
+                            changeValue();
+                            // Displays the next action the user must perform
+                            displayNextAction();
+                            // Redefine the counterTime of timer
+                            timer = null;
 
-                    // Mise à jour
+                            update();
+                            startTimer();
+                        }
+
+                    }.start();   // Start the countdown
+                }
+            }
+
+            public void changeValue() {
+                // Assigning the timer to the next action
+                setIndexArrayTraining(getIndexArrayTraining() + 1);
+                setCurrentTime(getArrayTraining().get(getIndexArrayTraining()) * 1000);
+                // The description of the timer changes to the following description
+                TextView tvChrono = (TextView) ((Activity)context).findViewById(R.id.description);
+                tvChrono.setText(getArrayTrainingField().get(getIndexArrayTraining()));
+            }
+
+            public void displayNextAction() {
+                // Get textview
+                TextView tvNextAction = (TextView) ((Activity)context).findViewById(R.id.nextAction);
+                TextView tvSecondAction = (TextView) ((Activity)context).findViewById(R.id.nextSecondAction);
+                TextView tvThirdAction = (TextView) ((Activity)context).findViewById(R.id.nextThirdAction);
+                // Assign textviews to a array
+                ArrayList<TextView> textViews = new ArrayList<>();
+                textViews.add(tvNextAction);
+                textViews.add(tvSecondAction);
+                textViews.add(tvThirdAction);
+                // Every textview display future actions
+                for (int i = 0; i < textViews.size(); i++) {
+                    int j = i+1;
+                    String nameNextTraining = getArrayTrainingField().get(getIndexArrayTraining()+j);
+                    String valueNextTraining = String.valueOf(getArrayTraining().get(getIndexArrayTraining()+j));
+                    textViews.get(i).setText("➜ " + nameNextTraining + " (" + valueNextTraining + "s)");
+                    textViews.get(i).setTextColor(Color.WHITE);
+                }
+            }
+
+            // Pause the counter
+            public void pause() {
+                if (timer != null) {
+                    stop(); // Stop the counter
                     update();
                 }
+            }
 
-                // Callback fired when the time is up
-                public void onFinish() {
-                    System.out.println("----------------------------");
-                    System.out.println(getArrayTime().get(getIndexArrayTime()) * 1000);
-                    setIndexArrayTime(getIndexArrayTime() + 1);
-                    int index = getIndexArrayTime();
-                    updatedTime = getArrayTime().get(index) * 1000;
-                    TextView tvChrono = (TextView) ((Activity)context).findViewById(R.id.description);
-                    tvChrono.setText(getArrayTimeField().get(getIndexArrayTime()));
-                    displayNextAction();
 
-                    // Mise à jour
-                    update();
-                    start();
-                }
+            // Reset the counter to the initial value
+            public void reset() {
+                // Stop the counter
+                if (timer != null) stop();
+                // Reset
+                counterTime = getArrayTraining().get(getIndexArrayTraining()) * 1000;
+                // Update
+                update();
 
-            }.start();   // Start the countdown
+            }
+
+            // Stop the CountDownTimer object and delete it
+            private void stop() {
+                timer.cancel();
+                timer = null;
+            }
+
+            public int getMinutes() {
+                return (int) (counterTime / 1000)/60;
+            }
+
+            public int getSecondes() {
+                int secs = (int) (counterTime / 1000);
+                return secs % 60;
+            }
+
+            public int getMillisecondes() {
+                return (int) (counterTime % 1000);
+            }
         }
-
-    }
-
-    public void displayNextAction() {
-        TextView tvNextAction = (TextView) ((Activity)context).findViewById(R.id.nextAction);
-        tvNextAction.setTextColor(Color.WHITE);
-        tvNextAction.setText("➜ " + getArrayTimeField().get(getIndexArrayTime()+1));
-    }
-
-    // Mettre en pause le compteur
-    public void pause() {
-        if (timer != null) {
-            // Arreter le timer
-            stop();
-
-            // Mise à jour
-            update();
-        }
-    }
-
-
-    // Remettre à le compteur à la valeur initiale
-    public void reset() {
-
-        if (timer != null) {
-
-            // Arreter le timer
-            stop();
-        }
-
-        // Réinitialiser
-        updatedTime = INITIAL_TIME;
-
-        // Mise à jour
-        update();
-
-    }
-
-    // Arrete l'objet CountDownTimer et l'efface
-    private void stop() {
-        timer.cancel();
-        timer = null;
-    }
-
-    public int getMinutes() {
-        return (int) (updatedTime / 1000)/60;
-    }
-
-    public int getSecondes() {
-        int secs = (int) (updatedTime / 1000);
-        return secs % 60;
-    }
-
-    public int getMillisecondes() {
-        return (int) (updatedTime % 1000);
-    }
-}

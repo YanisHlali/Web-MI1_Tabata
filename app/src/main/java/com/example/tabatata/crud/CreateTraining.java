@@ -28,10 +28,10 @@ public class CreateTraining extends AppCompatActivity {
         setContentView(R.layout.create_training);
         getSupportActionBar().hide();
 
-        // Récupération du DatabaseClient
+        // Get DatabaseClient
         mDb = DatabaseClient.getInstance(getApplicationContext());
         saveView = findViewById(R.id.btCreate);
-        // Associer un événement au bouton save
+        // Associate an event with the save button
         saveView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,25 +51,35 @@ public class CreateTraining extends AppCompatActivity {
         int idTextview = res.getIdentifier(valueId, "id", this.getPackageName());
         TextView textview = findViewById(idTextview);
         String textviewString = textview.getText().toString();
-        // Set new value
+        // Increment value
         int textviewInt = Integer.parseInt(textviewString);
-        if (textviewInt > 0 && operation.equals("delete")) textviewInt -= 1;
-        if (textviewInt < 10 && operation.equals("add")) textviewInt += 1;
+        if (textviewInt > 0 && operation.equals("delete")) {
+            // For work, cycle and sequence button, the mini value is 1
+            if (textviewInt == 1 && (valueId.equals("valueWork") || valueId.equals("valueCycle") || valueId.equals("valueSequence"))) {
+                Toast.makeText(this, "1 est la valeur minimum", Toast.LENGTH_SHORT).show();
+            } else {
+                textviewInt -= 1;
+            }
+        }
+        // Decrement value
+        if (textviewInt < 10 && operation.equals("add")) {
+            textviewInt += 1;
+        }
+        // Change the old value by the new in layout
         textviewString = String.valueOf(textviewInt);
         textview.setText(textviewString);
     }
 
 
     private void saveTraining() {
+        // Get all textview
         TextView tvPreparation = findViewById(R.id.valuePreparation);
         TextView tvSequence = findViewById(R.id.valueSequence);
         TextView tvCycle = findViewById(R.id.valueCycle);
         TextView tvWork = findViewById(R.id.valueWork);
         TextView tvRest = findViewById(R.id.valueRest);
         TextView tvLongRest = findViewById(R.id.valueLongRest);
-
-        System.out.println("------------------------ ");
-
+        // Convert all textview to string
         String preparation = tvPreparation.getText().toString();
         String sequence = tvSequence.getText().toString();
         String cycle = tvCycle.getText().toString();
@@ -81,7 +91,7 @@ public class CreateTraining extends AppCompatActivity {
 
             @Override
             protected Training doInBackground(Void... voids) {
-
+                // Create new training
                 Training training = new Training();
                 training.setPreparation(Integer.parseInt(preparation));
                 training.setSequence(Integer.parseInt(sequence));
@@ -89,7 +99,7 @@ public class CreateTraining extends AppCompatActivity {
                 training.setWork(Integer.parseInt(work));
                 training.setRest(Integer.parseInt(rest));
                 training.setLongRest(Integer.parseInt(longRest));
-
+                // Create name for training based on all training
                 List<Training> allTrainings = mDb.getAppDatabase().trainingDao().getAll();
                 int totalTraining = allTrainings.size()+1;
                 String trainingName = String.valueOf(totalTraining);
@@ -99,60 +109,19 @@ public class CreateTraining extends AppCompatActivity {
                         .trainingDao()
                         .insert(training);
 
-
                 return training;
             }
 
             @Override
             protected void onPostExecute(Training training) {
                 super.onPostExecute(training);
-
-                // Quand la tache est créée, on arrête l'activité AddTaskActivity (on l'enleve de la pile d'activités)
+                // When the task is created, we stop the AddTaskActivity (we remove it from the activity stack)
                 setResult(RESULT_OK);
                 finish();
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
             }
         }
-
-        //////////////////////////
-        // IMPORTANT bien penser à executer la demande asynchrone
         saveTraining st = new saveTraining();
         st.execute();
     }
-
-    /*public void getTraining(View v) {
-        TextView preparation = findViewById(R.id.valuePreparation);
-        TextView sequence = findViewById(R.id.valueSequence);
-
-        int totalTraining = getAllTrainings()+1;
-        String trainingName = String.valueOf(totalTraining);
-
-        Training training = new Training();
-        training.setName("Entrainement n°" + trainingName);
-        training.setPreparation(10);
-        training.setSequence(10);
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "training").allowMainThreadQueries().build();
-
-        Executor myExecutor = Executors.newSingleThreadExecutor();
-        myExecutor.execute(() -> {
-            db.trainingDao().insert(training);
-        });
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK + Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(intent);
-
-        Toast.makeText(getApplicationContext(),"Entrainement crée", Toast.LENGTH_SHORT).show();
-    }
-
-    public int getAllTrainings() {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "training").allowMainThreadQueries().build();
-        TrainingDao trainingDao = db.trainingDao();
-        List<Training> trainings = trainingDao.getAll();
-        int totalTraining = trainings.size()+1;
-        return totalTraining;
-    }; */
 }

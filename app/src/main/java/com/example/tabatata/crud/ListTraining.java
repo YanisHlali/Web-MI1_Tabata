@@ -76,8 +76,6 @@ public class ListTraining extends AppCompatActivity {
                 List<Training> taskList = mDb.getAppDatabase()
                         .trainingDao()
                         .getAll();
-                System.out.println("------------------------------------------");
-                System.out.println(taskList);
                 return taskList;
             }
 
@@ -110,31 +108,6 @@ public class ListTraining extends AppCompatActivity {
         getTrainings();
 
     }
-
-    /* public void displayTraining() {
-        ListView constraintLayout = findViewById(R.id.list_training);
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "training").allowMainThreadQueries().build();
-
-        List<Training> trainingList = db.taskDao().getAll();
-        int totalTraining = trainingList.size();
-        for (int i = 0; i < totalTraining; i++) {
-            TextView textView = new TextView(this);
-            if (trainingList.get(i).getName() == null) textView.setText("Entrainement Intitrée n°"+i);
-            else textView.setText(trainingList.get(i).getName());
-            textView.setTextSize(28);
-            textView.setId(i);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-            textView.setTextColor(Integer.parseInt("FFFFFF", 16)+0xFF000000);
-            textView.setPadding(50, 400+(i*200), 200, 0);
-            constraintLayout.addView(textView);
-        }; */
 
     public void seeTraining(int id) {
         Intent intent = new Intent(ListTraining.this, SeeTraining.class);

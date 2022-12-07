@@ -47,7 +47,6 @@ public class SeeTraining extends AppCompatActivity {
         intent.putExtra("id", id);
         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
-        finish();
     }
 
     public void RunTraining(int id) {
