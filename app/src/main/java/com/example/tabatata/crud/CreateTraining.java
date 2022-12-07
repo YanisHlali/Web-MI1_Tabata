@@ -41,45 +41,50 @@ public class CreateTraining extends AppCompatActivity {
     }
 
     public void changeValue(View v) {
-        // Get id
+        // Retrieve the identifier of the clicked button
         String completeIdButton = v.getResources().getResourceEntryName(v.getId());
+
+        // Separate the identifier into two parts: the operation and the name of the value to change
         String[] idButton = completeIdButton.split("Button");
         String operation = idButton[0];
         String valueId = "value"+idButton[1];
-        // Get Textview
+
+        // Get the TextView object associated with the value to change
         Resources res = getResources();
         int idTextview = res.getIdentifier(valueId, "id", this.getPackageName());
         TextView textview = findViewById(idTextview);
         String textviewString = textview.getText().toString();
-        // Increment value
+
+        // Convert the value of the TextView object to an integer
         int textviewInt = Integer.parseInt(textviewString);
+        // Decreases the value by 1 if the operation is delete
         if (textviewInt > 0 && operation.equals("delete")) {
-            // For work, cycle and sequence button, the mini value is 1
+            // Displays a warning message for the work, cycle and sequence buttons
             if (textviewInt == 1 && (valueId.equals("valueWork") || valueId.equals("valueCycle") || valueId.equals("valueSequence"))) {
                 Toast.makeText(this, "1 est la valeur minimum", Toast.LENGTH_SHORT).show();
             } else {
                 textviewInt -= 1;
             }
-        }
-        // Decrement value
-        if (textviewInt < 10 && operation.equals("add")) {
+        } else {
+            // Increases the value by 1 if the operation is add
             textviewInt += 1;
         }
-        // Change the old value by the new in layout
+        // Change the old value by the new one
         textviewString = String.valueOf(textviewInt);
         textview.setText(textviewString);
     }
 
 
     private void saveTraining() {
-        // Get all textview
+        // Retrieve field values from the user interface
         TextView tvPreparation = findViewById(R.id.valuePreparation);
         TextView tvSequence = findViewById(R.id.valueSequence);
         TextView tvCycle = findViewById(R.id.valueCycle);
         TextView tvWork = findViewById(R.id.valueWork);
         TextView tvRest = findViewById(R.id.valueRest);
         TextView tvLongRest = findViewById(R.id.valueLongRest);
-        // Convert all textview to string
+
+        // Convert field values to strings
         String preparation = tvPreparation.getText().toString();
         String sequence = tvSequence.getText().toString();
         String cycle = tvCycle.getText().toString();
@@ -87,11 +92,11 @@ public class CreateTraining extends AppCompatActivity {
         String rest = tvRest.getText().toString();
         String longRest = tvLongRest.getText().toString();
 
+        // Define an inner class to register the Training object in the background
        class saveTraining extends AsyncTask<Void, Void, Training> {
-
             @Override
             protected Training doInBackground(Void... voids) {
-                // Create new training
+                // Create a new Training object with the values of the fields
                 Training training = new Training();
                 training.setPreparation(Integer.parseInt(preparation));
                 training.setSequence(Integer.parseInt(sequence));
@@ -99,10 +104,14 @@ public class CreateTraining extends AppCompatActivity {
                 training.setWork(Integer.parseInt(work));
                 training.setRest(Integer.parseInt(rest));
                 training.setLongRest(Integer.parseInt(longRest));
-                // Create name for training based on all training
+
+                // Get the list of all existing Training objects in the database
                 List<Training> allTrainings = mDb.getAppDatabase().trainingDao().getAll();
+                // Calculate a number for the new Training object by adding 1 to the total number of objects in the list
                 int totalTraining = allTrainings.size()+1;
+                // Define a name for the new Training object using the calculated number
                 String trainingName = String.valueOf(totalTraining);
+                // Insert the new Training object in the database
                 training.setName("Entrainement n°" + trainingName);
 
                 mDb.getAppDatabase()
@@ -115,12 +124,13 @@ public class CreateTraining extends AppCompatActivity {
             @Override
             protected void onPostExecute(Training training) {
                 super.onPostExecute(training);
-                // When the task is created, we stop the AddTaskActivity (we remove it from the activity stack)
+                // End the current activity and display a confirmation message to the user
                 setResult(RESULT_OK);
                 finish();
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
             }
         }
+
         saveTraining st = new saveTraining();
         st.execute();
     }

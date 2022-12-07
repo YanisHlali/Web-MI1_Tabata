@@ -22,17 +22,26 @@ public class SeeTraining extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.see_training);
         getSupportActionBar().hide();
+        // Retrieve the identifier of the training to be displayed
         int id = (int) getIntent().getSerializableExtra("id");
+
+        // Retrieve the database object
         mDb = DatabaseClient.getInstance(getApplicationContext());
+
+        // Retrieve data from the workout to be displayed
         getTrainings(id);
+
+        // Retrieve "Modify" and "Play" button objects from the user interface
         Button btModify = findViewById(R.id.btModify);
         Button btPlay = findViewById(R.id.btPlay);
+        // Define an event listener for the "Modify" button
         btModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ModifyTraining(id);
             }
         });
+        // Define an event listener for the "Play" button
         btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

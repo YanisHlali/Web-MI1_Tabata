@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,15 +19,11 @@ import java.util.List;
 
 public class ListTraining extends AppCompatActivity {
 
-    //
-    private static final int REQUEST_CODE_ADD = 0;
-
     // DATA
     private DatabaseClient mDb;
     private TrainingsAdapter adapter;
 
     // VIEW
-    private Button buttonAdd;
     private ListView listTraining;
 
 
@@ -38,39 +33,30 @@ public class ListTraining extends AppCompatActivity {
         setContentView(R.layout.list_training);
         getSupportActionBar().hide();
 
-        // Récupération du DatabaseClient
+        // Get DatabaseClient
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        // Récupérer les vues
+        // Get views
         listTraining = findViewById(R.id.list_training);
 
-        // Lier l'adapter au listView
+        //  Link the adapter to the listView
         adapter = new TrainingsAdapter(this, new ArrayList<Training>());
         listTraining.setAdapter(adapter);
 
-
-        // EXEMPLE : Ajouter un événement click à la listView
+        // Add a click event to the listView
         listTraining.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // Récupération de la tâche cliquée à l'aide de l'adapter
+                // Recovery of the clicked task using the adapter
                 Training training = adapter.getItem(position);
-
                 seeTraining(training.getId());
             }
         });
-
-
-        /* displayTraining();
-        ConstraintLayout constraintLayout = findViewById(R.id.list_training);
-        displayTraining(constraintLayout); */
     }
 
     private void getTrainings() {
-        ///////////////////////
         class GetTrainings extends AsyncTask<Void, Void, List<Training>> {
-
+            // Is executed in the background and retrieves the list of Training objects from the database
             @Override
             protected List<Training> doInBackground(Void... voids) {
                 List<Training> taskList = mDb.getAppDatabase()
@@ -78,23 +64,19 @@ public class ListTraining extends AppCompatActivity {
                         .getAll();
                 return taskList;
             }
-
+            // Is executed once the asynchronous task is finished and updates the adapter with the list of Training objects
             @Override
             protected void onPostExecute(List<Training> trainings) {
                 super.onPostExecute(trainings);
 
-                // Mettre à jour l'adapter avec la liste de taches
+                // Update of the adapter with the list of training objects
                 adapter.clear();
                 adapter.addAll(trainings);
-
-                // Now, notify the adapter of the change in source
+                // Notifies the adapter of the source change
                 adapter.notifyDataSetChanged();
             }
         }
-
-        //////////////////////////
-        // IMPORTANT bien penser à executer la demande asynchrone
-        // Création d'un objet de type GetTasks et execution de la demande asynchrone
+        // Creation of a GetTrainings object and execution of the asynchronous request
         GetTrainings gt = new GetTrainings();
         gt.execute();
     }
@@ -103,16 +85,19 @@ public class ListTraining extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        // Mise à jour des taches
+        // Update trainings
         getTrainings();
 
     }
 
     public void seeTraining(int id) {
+        // Create an intention for the SeeTraining activity
         Intent intent = new Intent(ListTraining.this, SeeTraining.class);
+        // Add the course identifier to the intent
         intent.putExtra("id", id);
+        // Delete the other activities above it in the activity stack
         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // Starting the SeeTraining activity using intention
         this.startActivity(intent);
     }
 }
