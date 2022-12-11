@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#343434">
+
+        <!-- __________ PREPARATION __________ -->
+        <TextView
+            android:id="@+id/titlePage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:fontFamily="@font/bebasneue"
+            android:text="Votre entrainement"
+            android:textColor="@color/white"
+            android:textSize="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titlePreparation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="Préparation"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titlePage" />
+
+        <ImageView
+            android:id="@+id/deleteButtonPreparation"
+            android:layout_width="67dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/remove_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titlePreparation" />
+
+        <ImageView
+            android:id="@+id/addButtonPreparation"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titlePreparation" />
+
+        <TextView
+            android:id="@+id/valuePreparation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonPreparation"
+            app:layout_constraintStart_toEndOf="@+id/deleteButtonPreparation"
+            app:layout_constraintTop_toBottomOf="@+id/titlePreparation" />
+
+        <!-- __________ Sequence __________ -->
+        <TextView
+            android:id="@+id/titleSequence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
+            android:text="Séquence"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/valuePreparation" />
+
+        <ImageView
+            android:id="@+id/deleteButtonSequence"
+            android:layout_width="67dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/remove_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleSequence" />
+
+        <ImageView
+            android:id="@+id/addButtonSequence"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleSequence" />
+
+        <TextView
+            android:id="@+id/valueSequence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonSequence"
+            app:layout_constraintStart_toEndOf="@+id/deleteButtonSequence"
+            app:layout_constraintTop_toBottomOf="@+id/titleSequence" />
+
+        <!-- __________ Cycle __________ -->
+
+        <TextView
+            android:id="@+id/titleCycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
+            android:text="Cycle"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/valueSequence" />
+
+        <ImageView
+            android:id="@+id/deleteButtonCycle"
+            android:layout_width="67dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/remove_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleCycle" />
+
+        <ImageView
+            android:id="@+id/addButtonCycle"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleCycle" />
+
+        <TextView
+            android:id="@+id/valueCycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonCycle"
+            app:layout_constraintStart_toEndOf="@+id/deleteButtonCycle"
+            app:layout_constraintTop_toBottomOf="@+id/titleCycle" />
+
+        <!-- __________ Work __________ -->
+
+        <TextView
+            android:id="@+id/titleWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
+            android:text="Travail"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/valueCycle" />
+
+        <ImageView
+            android:id="@+id/deleteButtonWork"
+            android:layout_width="67dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/remove_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleWork" />
+
+        <ImageView
+            android:id="@+id/addButtonWork"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleWork" />
+
+        <TextView
+            android:id="@+id/valueWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonWork"
+            app:layout_constraintStart_toEndOf="@+id/deleteButtonWork"
+            app:layout_constraintTop_toBottomOf="@+id/titleWork" />
+
+        <!-- __________ Rest  __________ -->
+
+        <TextView
+            android:id="@+id/titleRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
+            android:text="Repos"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/valueWork" />
+
+        <ImageView
+            android:id="@+id/deleteButtonRest"
+            android:layout_width="67dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/remove_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleRest" />
+
+        <ImageView
+            android:id="@+id/addButtonRest"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleRest" />
+
+        <TextView
+            android:id="@+id/valueRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonRest"
+            app:layout_constraintStart_toEndOf="@+id/deleteButtonRest"
+            app:layout_constraintTop_toBottomOf="@+id/titleRest" />
+
+        <!-- __________ Long Rest  __________ -->
+
+        <TextView
+            android:id="@+id/titleLongRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato"
+            android:text="Repos long"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/valueRest" />
+
+        <ImageView
+            android:id="@+id/deleteButtonLongRest"
+            android:layout_width="67dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/remove_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleLongRest" />
+
+        <ImageView
+            android:id="@+id/addButtonLongRest"
+            android:layout_width="75dp"
+            android:layout_height="63dp"
+            android:layout_marginEnd="150dp"
+            android:onClick="changeValue"
+            android:src="@drawable/add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleLongRest" />
+
+        <TextView
+            android:id="@+id/valueLongRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato"
+            android:text="10"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/addButtonLongRest"
+            app:layout_constraintStart_toEndOf="@+id/deleteButtonLongRest"
+            app:layout_constraintTop_toBottomOf="@+id/titleLongRest" />
+
+        <Button
+            android:id="@+id/btCreate"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="#14B09B"
+            android:onClick="getTraining"
+            android:radius="5dp"
+            android:text="Créer"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/valueLongRest" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

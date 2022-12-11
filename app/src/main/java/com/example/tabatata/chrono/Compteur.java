@@ -13,7 +13,7 @@
         public class Compteur extends UpdateSource {
             Context context;
 
-            private long counterTime;
+            public long counterTime;
             private CountDownTimer timer;
             private ArrayList<Integer> arrayTraining;
             private int indexArrayTraining;
@@ -51,7 +51,9 @@
                 // Displays the next action the user must perform
                 displayNextAction();
                 // Initializes the counter time to the current workout time
+                System.out.println("CHRONO : " + getCurrentTime());
                 if (getCurrentTime() == 0) setCurrentTime(getArrayTraining().get(0) * 1000);
+
                 counterTime = getCurrentTime();
                 // If the timer doesn't exist ...
                 if (timer == null) {
@@ -90,22 +92,29 @@
             }
 
             public void displayNextAction() {
-                // Get textview
+                // Retrieving TextViews to display
                 TextView tvNextAction = (TextView) ((Activity)context).findViewById(R.id.nextAction);
                 TextView tvSecondAction = (TextView) ((Activity)context).findViewById(R.id.nextSecondAction);
                 TextView tvThirdAction = (TextView) ((Activity)context).findViewById(R.id.nextThirdAction);
-                // Assign textviews to a array
+                // Setting up a list to store TextViews
                 ArrayList<TextView> textViews = new ArrayList<>();
                 textViews.add(tvNextAction);
                 textViews.add(tvSecondAction);
                 textViews.add(tvThirdAction);
-                // Every textview display future actions
+                // Loop over each TextView to define its content
                 for (int i = 0; i < textViews.size(); i++) {
                     int j = i+1;
-                    String nameNextTraining = getArrayTrainingField().get(getIndexArrayTraining()+j);
-                    String valueNextTraining = String.valueOf(getArrayTraining().get(getIndexArrayTraining()+j));
-                    textViews.get(i).setText("➜ " + nameNextTraining + " (" + valueNextTraining + "s)");
-                    textViews.get(i).setTextColor(Color.WHITE);
+                    // If we have reached the end of the list of formations, we remove the text
+                    if (getIndexArrayTraining()+j >= getArrayTrainingField().size()) {
+                        textViews.get(i).setTextColor(343434);
+                    }
+                    // Otherwise we continue to display the list
+                    else {
+                        String nameNextTraining = getArrayTrainingField().get(getIndexArrayTraining()+j);
+                        String valueNextTraining = String.valueOf(getArrayTraining().get(getIndexArrayTraining()+j));
+                        textViews.get(i).setText("➜ " + nameNextTraining + " (" + valueNextTraining + "s)");
+                        textViews.get(i).setTextColor(Color.WHITE);
+                    }
                 }
             }
 

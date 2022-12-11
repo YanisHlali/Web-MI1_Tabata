@@ -1,5 +1,6 @@
 package com.example.tabatata.crud;
 
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,12 +23,58 @@ public class CreateTraining extends AppCompatActivity {
 
     // VIEW
     private Button saveView;
+    // Getter and setter for preparation
+    private TextView preparation;
+    private TextView getPreparation() { return this.preparation; }
+    private void setPreparation(TextView tv) { this.preparation = tv; }
+    // Getter and setter for sequence
+    private TextView tvSequence;
+    private TextView getSequence() { return this.tvSequence; }
+    private void setSequence(TextView tv) { this.tvSequence = tv; }
+    // Getter and setter for cycle
+    private TextView tvCycle;
+    private TextView getCycle() { return this.tvCycle; }
+    private void setCycle(TextView tv) { this.tvCycle = tv; }
+    // Getter and setter for work
+    private TextView tvWork;
+    private TextView getWork() { return this.tvWork; }
+    private void setWork(TextView tv) { this.tvWork = tv; }
+    // Getter and setter for rest
+    private TextView tvRest;
+    private TextView getRest() { return this.tvRest; }
+    private void setRest(TextView tv) { this.tvRest = tv; }
+    // Getter and setter for long rest
+    private TextView tvLongRest;
+    private TextView getLongRest() { return this.tvLongRest; }
+    private void setLongRest(TextView tv) { this.tvLongRest = tv; }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_training);
         getSupportActionBar().hide();
 
+        initializeTrainingUI();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Vérifiez si l'écran est en mode paysage ou portrait
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getAllValue();
+            setContentView(R.layout.create_training_horizontal);
+            setAllValue();
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            getAllValue();
+            setContentView(R.layout.create_training);
+            setAllValue();
+        }
+        initializeTrainingUI();
+    }
+
+    public void initializeTrainingUI() {
         // Get DatabaseClient
         mDb = DatabaseClient.getInstance(getApplicationContext());
         saveView = findViewById(R.id.btCreate);
@@ -38,6 +85,37 @@ public class CreateTraining extends AppCompatActivity {
                 saveTraining();
             }
         });
+    }
+
+    public void getAllValue() {
+        TextView tvPreparation = findViewById(R.id.valuePreparation);
+        TextView tvSequence = findViewById(R.id.valueSequence);
+        TextView tvCycle = findViewById(R.id.valueCycle);
+        TextView tvWork = findViewById(R.id.valueWork);
+        TextView tvRest = findViewById(R.id.valueRest);
+        TextView tvLongRest = findViewById(R.id.valueLongRest);
+        setPreparation(tvPreparation);
+        setSequence(tvSequence);
+        setCycle(tvCycle);
+        setWork(tvWork);
+        setRest(tvRest);
+        setLongRest(tvLongRest);
+    }
+
+    public void setAllValue() {
+        TextView tvPreparation = findViewById(R.id.valuePreparation);
+        TextView tvSequence = findViewById(R.id.valueSequence);
+        TextView tvCycle = findViewById(R.id.valueCycle);
+        TextView tvWork = findViewById(R.id.valueWork);
+        TextView tvRest = findViewById(R.id.valueRest);
+        TextView tvLongRest = findViewById(R.id.valueLongRest);
+
+        tvPreparation.setText(getPreparation().getText().toString());
+        tvSequence.setText(getSequence().getText().toString());
+        tvCycle.setText(getCycle().getText().toString());
+        tvWork.setText(getWork().getText().toString());
+        tvRest.setText(getRest().getText().toString());
+        tvLongRest.setText(getLongRest().getText().toString());
     }
 
     public void changeValue(View v) {

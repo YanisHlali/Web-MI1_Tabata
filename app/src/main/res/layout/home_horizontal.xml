@@ -25,22 +25,23 @@
         android:id="@+id/button"
         android:layout_width="244dp"
         android:layout_height="86dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="200dp"
         android:backgroundTint="#14B09B"
         android:fontFamily="@font/lato"
         android:onClick="seeTrainings"
         android:text="Vos entrainements"
         android:textColor="@color/white"
         android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="244dp"
         android:layout_height="86dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="100dp"
         android:backgroundTint="#14B09B"
         android:fontFamily="@font/lato"
         android:onClick="createTraining"
@@ -48,7 +49,6 @@
         android:textColor="@color/white"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
