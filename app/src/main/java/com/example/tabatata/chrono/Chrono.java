@@ -245,17 +245,6 @@ public abstract class Chrono extends AppCompatActivity implements OnUpdateListen
         compteur.setCurrentTime(time * 1000);
     }
 
-    public void getCurrentChrono() {
-        // Get a reference to the valueChrono TextView in the layout
-        TextView tvChrono = findViewById(R.id.valueChrono);
-        // Split the text of the valueChrono TextView by the ":" character
-        String[] times = tvChrono.getText().toString().split(":");
-        // Convert the minutes and seconds strings to floats and add them together
-        float time = Float.parseFloat(times[0]) + Float.parseFloat(times[1]);
-        // Set the current time in the Compteur object to the time in milliseconds
-        compteur.setCurrentTime(time * 1000);
-    }
-
     // This method is used to change the image of the playButton ImageButton
     public void changeImageButton(String status) {
         // Get a reference to the playButton ImageButton in the layout
